@@ -1,11 +1,17 @@
-import User from "../models/User.js";
+import { getRecommendations } from "../services/spotifyService.js";
 
-export const registerUser = async (req, res) => {
+// @desc Get song recommendations
+// @route GET /api/recommendations?artist=xxx&track=yyy
+export const fetchRecommendations = async (req, res) => {
   try {
-    const { username, favoriteArtist, favoriteSong } = req.body;
-    const user = await User.create({ username, favoriteArtist, favoriteSong });
-    res.status(201).json(user);
+    const { artist, track } = req.query;
+    if (!artist || !track) {
+      return res.status(400).json({ message: "Artist and track are required" });
+    }
+
+    const recs = await getRecommendations(artist, track);
+    res.json(recs);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
