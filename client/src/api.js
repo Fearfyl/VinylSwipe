@@ -1,4 +1,4 @@
-// Fetch recommendations from server
+/// Fetch recommendations from server
 export const fetchRecommendations = async (artist, track) => {
   const res = await fetch(
     `http://localhost:5000/api/recommendations?artist=${artist}&track=${track}`
