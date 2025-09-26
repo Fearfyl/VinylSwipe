@@ -1,19 +1,30 @@
 import React, { useState } from "react";
-import { fetchRecommendations } from "./api.js";
+import { fetchRecommendations, saveSwipe } from "./api.js";
 import SwipeCard from "./components/SwipeCard.jsx";
 
 export default function App() {
   const [songs, setSongs] = useState([]);
   const [artist, setArtist] = useState("");
   const [track, setTrack] = useState("");
+  const [userId, setUserId] = useState("12345"); // Placeholder until auth is added
 
   const handleFetch = async () => {
     const recs = await fetchRecommendations(artist, track);
     setSongs(recs);
   };
 
-  const handleSwipe = (direction, song) => {
+  const handleSwipe = async (direction, song) => {
+    const liked = direction === "right";
     console.log(`Swiped ${direction} on ${song.track}`);
+
+    await saveSwipe({
+      userId,
+      trackId: song.id,
+      track: song.track,
+      artist: song.artist,
+      preview_url: song.preview_url,
+      liked,
+    });
   };
 
   return (
