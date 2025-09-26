@@ -7,6 +7,9 @@ import recommendationRoutes from "./routes/recommendationRoutes.js";
 import swipeRoutes from "./routes/swipeRoutes.js";
 
 
+import swipeRoutes from "./routes/swipeRoutes.js";
+
+
 dotenv.config();
 const app = express();
 
@@ -21,6 +24,10 @@ app.use("/api/users", userRoutes);
 app.use("/api/recommendations", recommendationRoutes);
 
 app.use("/api/swipes", swipeRoutes);
+
+
+app.use("/api/swipes", swipeRoutes);
+
 
 
 // Server
