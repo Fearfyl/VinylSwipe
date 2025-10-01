@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
-import recommendationRoutes from "./routes/recommendationRoutes.js";
+import recommendationRoutes from "./server/routes/recommendationRoutes.js";
 
 dotenv.config();
 const app = express();
