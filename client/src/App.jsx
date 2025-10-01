@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { fetchRecommendations, saveSwipe } from "./api.js";
+import { fetchRecommendations, saveSwipe } from "../utils/api.js";
 import SwipeCard from "./components/SwipeCard.jsx";
 
 export default function App() {
