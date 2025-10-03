@@ -1,17 +1,22 @@
-import { getRecommendations } from "../services/spotifyService.js";
+import User from "../models/User.js";
 
-// @desc Get song recommendations
-// @route GET /api/recommendations?artist=xxx&track=yyy
-export const fetchRecommendations = async (req, res) => {
+// GET leaderboard
+export const getLeaderboard = async (req, res) => {
   try {
-    const { artist, track } = req.query;
-    if (!artist || !track) {
-      return res.status(400).json({ message: "Artist and track are required" });
-    }
+    const users = await User.find().sort({ points: -1 }).limit(10);
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching leaderboard" });
+  }
+};
 
-    const recs = await getRecommendations(artist, track);
-    res.json(recs);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+// GET single profile
+export const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching profile" });
   }
 };
